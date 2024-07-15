@@ -15,12 +15,13 @@ First, list all the pods in the `production` namespace to identify the pod you a
 
 ```bash
 kubectl get pods -n production
+```
 
 2. Describe the Pod
 Once you have the pod name, use the kubectl describe pod command to get detailed information about the pod, including the reason for the restart.
-
+```
 kubectl describe pod <pod-name> -n production
-
+```
 
 3. Check Events Section
 Look at the "Events" section in the output of the kubectl describe pod command. This section provides detailed information about the events that have occurred, including reasons for pod restarts.
