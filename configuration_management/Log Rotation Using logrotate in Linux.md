@@ -29,6 +29,7 @@ Save the changes to /etc/logrotate.d/myapp.
 Edit the Crontab:
 Configure a cron job to run logrotate every 10 minutes between 2 AM and 4 AM. Edit the crontab file:
 
+```bash
 sudo crontab -e
 
 Add Cron Job Entry:
