@@ -8,7 +8,7 @@
 
    ```bash
    sudo nano /etc/logrotate.d/myapp
-
+```
 
 ### Add Configuration:
 Insert the following content into the file to configure log rotation for   **`/var/log/myapp.log`**
@@ -22,7 +22,7 @@ Insert the following content into the file to configure log rotation for   **`/v
     missingok
     notifempty
 }
-
+```
 
 ### Step 2: Save the Configuration File
 Save the changes to  **`/etc/logrotate.d/myapp`**
@@ -33,8 +33,10 @@ Configure a cron job to run logrotate every 10 minutes between 2 AM and 4 AM. Ed
 
 ```bash
 sudo crontab -e
+```
 
 Add Cron Job Entry:
 Add the following cron job entry to the crontab file:
-
+```
 */10 2-3 * * * /usr/sbin/logrotate /etc/logrotate.conf
+```

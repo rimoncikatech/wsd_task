@@ -12,3 +12,4 @@ To display all Ansible configurations used by your local Ansible setup, includin
 
 ```bash
 ansible-inventory --list
+```
