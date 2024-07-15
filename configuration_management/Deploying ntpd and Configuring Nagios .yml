@@ -36,6 +36,7 @@ This repository provides Ansible playbooks and configurations to deploy `ntpd` w
            name: ntpd
            state: restarted
 
+```
 
 This playbook installs the ntpd package and deploys a custom ntpd.conf configuration file using a Jinja2 template.
 
