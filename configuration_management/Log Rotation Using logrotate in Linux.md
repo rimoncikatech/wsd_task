@@ -22,9 +22,9 @@ Insert the following content into the file to configure log rotation for   **`/v
     missingok
     notifempty
 }
-```bash
 
-Step 2: Save the Configuration File
+
+### Step 2: Save the Configuration File
 Save the changes to  **`/etc/logrotate.d/myapp`**
 
 ### Configuring a Cron Job for Logrotate
