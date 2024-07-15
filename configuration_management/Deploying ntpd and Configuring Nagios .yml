@@ -107,15 +107,3 @@ ansible-playbook -i hosts configure_nagios.yml --extra-vars "host_name=web-vm1.f
 
 ```
 
-
-## Fenced code blocks
-
-You can create fenced code blocks by placing triple backticks <code>\`\`\`</code> before and after the code block. We recommend placing a blank line before and after code blocks to make the raw formatting easier to read.
-
-````text
-```
-function test() {
-  console.log("notice the blank line before this function?");
-}
-```
-````
