@@ -4,7 +4,6 @@ This repository provides Ansible playbooks and configurations to deploy `ntpd` w
 
 ## Prerequisites
 
-- Ansible installed on the control machine. Installation guide can be found [here](https://docs.ansible.com/ansible/latest/installation_guide/index.html).
 - Access to target servers (`app-vm1.fra1.internal`, `db-vm1.fra1.db`, `web-vm1.fra1.web`) and Nagios server (`monitoring.fra1.internal`) via SSH.
 
 ## Steps
@@ -36,3 +35,64 @@ This repository provides Ansible playbooks and configurations to deploy `ntpd` w
          service:
            name: ntpd
            state: restarted
+
+
+This playbook installs the ntpd package and deploys a custom ntpd.conf configuration file using a Jinja2 template.
+
+Create Jinja2 Template (templates/ntpd.conf.j2):
+
+# /etc/ntpd.conf
+tinker panic 0
+restrict default kod nomodify notrap nopeer noquery
+restrict -6 default kod nomodify notrap nopeer noquery
+restrict 127.0.0.1
+restrict -6 ::1
+server   192.168.0.252 minpoll 4 maxpoll 8
+server   192.168.0.251 minpoll 4 maxpoll 8
+server   192.168.0.0 # local clock
+fudge    192.168.0.0 stratum 10
+driftfile /var/lib/ntp/drift
+keys     /etc/ntp/keys
+
+
+
+Run the Playbook:
+
+ansible-playbook -i hosts deploy_ntpd.yml
+
+
+Step 2: Configuring Nagios Monitoring Templates
+Create Ansible Playbook (configure_nagios.yml):
+
+---
+- name: Configure Nagios monitoring templates
+  hosts: nagios_server
+  become: true
+  tasks:
+    - name: Define host in Nagios
+      nagios_host:
+        config:
+          - name: "{{ host_name }}"
+            address: "{{ host_ip }}"
+            check_command: check-ping
+            active_checks_enabled: 1
+            passive_checks_enabled: 1
+
+    - name: Define service in Nagios
+      nagios_service:
+        config:
+          - name: "{{ host_name }}_ntp_process"
+            host_name: "{{ host_name }}"
+            service_description: ntp_process
+            check_command: check_ntp
+            check_interval: 10
+
+
+
+Run the Playbook for Each Server:
+
+
+
+ansible-playbook -i hosts configure_nagios.yml --extra-vars "host_name=app-vm1.fra1.internal host_ip=192.168.0.2"
+ansible-playbook -i hosts configure_nagios.yml --extra-vars "host_name=db-vm1.fra1.db host_ip=192.168.0.3"
+ansible-playbook -i hosts configure_nagios.yml --extra-vars "host_name=web-vm1.fra1.web host_ip=192.168.0.4"
