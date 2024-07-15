@@ -11,7 +11,7 @@
 
 
 ### Add Configuration:
-Insert the following content into the file to configure log rotation for /var/log/myapp.log:
+Insert the following content into the file to configure log rotation for   **`/var/log/myapp.log`**
 
 /var/log/myapp.log {
     daily
@@ -23,7 +23,7 @@ Insert the following content into the file to configure log rotation for /var/lo
 }
 
 Step 2: Save the Configuration File
-Save the changes to /etc/logrotate.d/myapp.
+Save the changes to  **`/etc/logrotate.d/myapp`**
 
 ### Configuring a Cron Job for Logrotate
 Edit the Crontab:
