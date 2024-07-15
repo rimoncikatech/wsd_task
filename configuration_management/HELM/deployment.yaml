@@ -1,0 +1,37 @@
+# Example YAML for Elasticsearch deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-elasticsearch-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+      role: master
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+        role: master
+    spec:
+      containers:
+      - name: elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+        ports:
+        - containerPort: 9200
+          name: http
+          protocol: TCP
+        - containerPort: 9300
+          name: inter-node
+          protocol: TCP
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+        env:
+        - name: "ES_JAVA_OPTS"
+          value: "-Xmx1g -Xms1g"
