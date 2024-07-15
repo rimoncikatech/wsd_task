@@ -13,6 +13,7 @@
 ### Add Configuration:
 Insert the following content into the file to configure log rotation for   **`/var/log/myapp.log`**
 
+```bash
 /var/log/myapp.log {
     daily
     rotate 7
@@ -21,6 +22,7 @@ Insert the following content into the file to configure log rotation for   **`/v
     missingok
     notifempty
 }
+```bash
 
 Step 2: Save the Configuration File
 Save the changes to  **`/etc/logrotate.d/myapp`**
