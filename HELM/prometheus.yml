@@ -1,0 +1,11 @@
+groups:
+  - name: kubernetes-rules
+    rules:
+      - alert: HighPodCpuUsage
+        expr: sum(rate(container_cpu_usage_seconds_total{job="kubelet", namespace="default"}[5m])) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected on pod {{$labels.pod}}"
+          description: "Pod {{$labels.pod}} in namespace {{$labels.namespace}} has high CPU usage."
