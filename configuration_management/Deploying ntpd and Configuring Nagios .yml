@@ -1,0 +1,38 @@
+# Deploying ntpd and Configuring Nagios Monitoring Templates with Ansible
+
+This repository provides Ansible playbooks and configurations to deploy `ntpd` with a custom configuration file (`/etc/ntpd.conf`) and configure Nagios monitoring templates for server monitoring.
+
+## Prerequisites
+
+- Ansible installed on the control machine. Installation guide can be found [here](https://docs.ansible.com/ansible/latest/installation_guide/index.html).
+- Access to target servers (`app-vm1.fra1.internal`, `db-vm1.fra1.db`, `web-vm1.fra1.web`) and Nagios server (`monitoring.fra1.internal`) via SSH.
+
+## Steps
+
+### Step 1: Deploying ntpd with Custom Configuration
+
+1. **Create Ansible Playbook (`deploy_ntpd.yml`)**:
+
+   ```yaml
+   ---
+   - name: Deploy ntpd and custom ntpd.conf
+     hosts: all
+     become: true
+     tasks:
+       - name: Install ntpd package
+         package:
+           name: ntp
+           state: present
+
+       - name: Copy custom ntpd.conf
+         template:
+           src: templates/ntpd.conf.j2
+           dest: /etc/ntpd.conf
+         notify:
+           - restart ntpd
+
+     handlers:
+       - name: restart ntpd
+         service:
+           name: ntpd
+           state: restarted
