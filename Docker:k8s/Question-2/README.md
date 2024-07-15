@@ -1,27 +1,29 @@
-To identify the reason for a pod restart in a Kubernetes cluster, you can use the following command, assuming the project name is "internal" and the namespace is "production":
+# Kubernetes Pod Restart Diagnosis
 
-bash
-Copy code
-kubectl describe pod <pod-name> -n production
-Here's the step-by-step process:
+This repository provides instructions and examples for diagnosing the reason for a pod restart in a Kubernetes cluster, specifically for a project named "internal" in the "production" namespace.
 
-List the Pods in the Namespace: First, identify the name of the pod that has restarted.
+## Prerequisites
 
-bash
-Copy code
+- Access to a Kubernetes cluster.
+- kubectl installed and configured to interact with your Kubernetes cluster.
+
+## Steps to Identify the Reason for a Pod Restart
+
+### 1. List the Pods in the Namespace
+
+First, list all the pods in the `production` namespace to identify the pod you are interested in.
+
+```bash
 kubectl get pods -n production
-Describe the Pod: Once you have the pod name, use the kubectl describe pod command to get detailed information about the pod, including the reason for the restart.
 
-bash
-Copy code
+2. Describe the Pod
+Once you have the pod name, use the kubectl describe pod command to get detailed information about the pod, including the reason for the restart.
+
 kubectl describe pod <pod-name> -n production
-Check Events Section: Look at the "Events" section in the output of the kubectl describe pod command. This section provides detailed information about the events that have occurred, including reasons for pod restarts.
 
-Check Container Status: In the kubectl describe pod output, there is a section for each container in the pod that includes information about the container status. Look for Last State and State fields to see why the container restarted.
 
-Alternatively, you can use the following command to get logs from the previous instance of the container (before it restarted):
+3. Check Events Section
+Look at the "Events" section in the output of the kubectl describe pod command. This section provides detailed information about the events that have occurred, including reasons for pod restarts.
 
-bash
-Copy code
-kubectl logs <pod-name> -n production --previous
-This command fetches the logs of the previous instance of the container, which might provide clues about why the container restarted.
+4. Check Container Status
+In the kubectl describe pod output, there is a section for each container in the pod that includes information about the container status. Look for Last State and State fields to see why the container restarted.
