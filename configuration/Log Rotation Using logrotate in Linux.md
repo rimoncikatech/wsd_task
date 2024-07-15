@@ -10,11 +10,12 @@
    sudo nano /etc/logrotate.d/myapp
 
 
-### Add Configuration:
+
+1. **Add Configuration:**:
 Insert the following content into the file to configure log rotation for /var/log/myapp.log:
 
    ```bash
-/var/log/myapp.log {
+   /var/log/myapp.log {
     daily
     rotate 7
     compress
@@ -22,6 +23,8 @@ Insert the following content into the file to configure log rotation for /var/lo
     missingok
     notifempty
 }
+
+
 
 Step 2: Save the Configuration File
 Save the changes to /etc/logrotate.d/myapp.
