@@ -12,7 +12,8 @@ This repository provides Ansible playbooks and configurations to deploy `ntpd` w
 
 1. **Create Ansible Playbook (`deploy_ntpd.yml`)**:
 
-   ```yaml
+   ````yaml
+   ```
    ---
    - name: Deploy ntpd and custom ntpd.conf
      hosts: all
@@ -37,6 +38,7 @@ This repository provides Ansible playbooks and configurations to deploy `ntpd` w
            state: restarted
 
 ```
+````
 
 This playbook installs the ntpd package and deploys a custom ntpd.conf configuration file using a Jinja2 template.
 
